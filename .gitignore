@@ -1,0 +1,5 @@
+#This stuff for pycharm
+.idea/
+#data files
+*.csv
+*.xlsx
