@@ -3,3 +3,7 @@
 #data files
 *.csv
 *.xlsx
+#.swp files
+*.swp
+#pychache files
+__pycache__/
