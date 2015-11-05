@@ -14,7 +14,7 @@ def write_to_csv(file_name, values):
     """
     writes the values to a csv file with the given file name
     """
-    with open(file_name+'.csv', 'w+') as f:
+    with open('csv_files/'+file_name+'.csv', 'w+') as f:
         csv_writer = csv.writer(f)
         for value in values:
             csv_writer.writerow(value)
