@@ -5,6 +5,7 @@ filter_by_day_of_week.py
 
 Takes a dataframe and filters the values by the day of the week
 """
+
 days = [
     'Sunday',
     'Monday',

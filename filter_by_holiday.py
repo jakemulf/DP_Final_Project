@@ -9,7 +9,7 @@ into categories based on the holidays
 
 
 def labor_day(date):
-    return date.month == 9 and date.weekday() in [0,5,6] and date.day < 7
+    return date.month == 9 and (date.weekday() in [0,5,6]) and date.day < 7
 
 
 def forth_of_july(date):
@@ -41,13 +41,16 @@ def filter_data(data_frame):
     for i in range(len(data_frame.values)):
         value = data_frame.values[i]
         date = data_frame['DATE'][i]
+
         is_holiday = False
+
         for j in range(len(holiday_functions)):
             func = holiday_functions[j]
             if func(date):
                 is_holiday = True
                 data_frame_dict[holiday_names[j]].append(value)
                 break
+
         if not is_holiday:
             data_frame_dict[holiday_names[-1]].append(value)
 
