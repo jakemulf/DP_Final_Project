@@ -9,7 +9,7 @@ into categories based on the holidays
 
 
 def labor_day(date):
-    return date.month == 9 and date.weekday() == 0 and date.day < 7
+    return date.month == 9 and date.weekday() in [0,5,6] and date.day < 7
 
 
 def forth_of_july(date):
@@ -19,6 +19,8 @@ holiday_functions = [
     labor_day,
     forth_of_july,
 ]
+
+# holiday_functions[i] and holiday_names[i] must map to the same holiday
 
 holiday_names = [
     'Labor Day',

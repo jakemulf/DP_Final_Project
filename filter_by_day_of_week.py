@@ -18,7 +18,7 @@ days = [
 
 def filter_data(data_frame):
     """
-    Takes a data frame and returns 7 new data frames, 1 for each
+    Takes a data frame and returns 7 dictionaries containing values for each
     day of the week
     """
     data_frame_dict = {}
