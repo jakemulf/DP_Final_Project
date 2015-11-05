@@ -1,9 +1,15 @@
 #This stuff for pycharm
 .idea/
+
 #data files
 *.csv
 *.xlsx
+
 #.swp files
 *.swp
+
 #pychache files
 __pycache__/
+
+#Test file to run script
+test.py
