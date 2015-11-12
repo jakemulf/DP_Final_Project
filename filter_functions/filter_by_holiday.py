@@ -28,7 +28,6 @@ holiday_names = [
     'No Holiday',
 ]
 
-import time
 
 def filter_data(data_frame):
     """
