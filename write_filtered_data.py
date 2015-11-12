@@ -20,10 +20,11 @@ def write_to_csv(file_name, values):
             csv_writer.writerow(value)
 
 
-def dict_to_csv(data_frame_dict):
+def filtered_data_frame_to_csv(filtered_data_frame, filter_keys):
     """
-    Creates multiple csv files where each csv file has the name of a key in the
-    dictionary and the values corresponding to that key
+    Creates multiple csv files where each csv file has the name of a value in the
+    given filter keys and contains all the values with that filter value
     """
-    for key in data_frame_dict.keys():
-        write_to_csv(key, data_frame_dict[key])
+    for key in filter_keys:
+        values = filtered_data_frame[filtered_data_frame['filter'] == key]
+        write_to_csv(key, values.values)

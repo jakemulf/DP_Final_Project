@@ -28,6 +28,7 @@ holiday_names = [
     'No Holiday',
 ]
 
+import time
 
 def filter_data(data_frame):
     """
@@ -39,7 +40,6 @@ def filter_data(data_frame):
     new_data_frame = pandas.DataFrame([], columns=new_cols)
 
     for i in range(len(data_frame.values)):
-        print('Loop {}'.format(i))
         value = data_frame.values[i]
         date = data_frame['DATE'][i]
 
@@ -51,6 +51,6 @@ def filter_data(data_frame):
                 holiday_index = j                
                 break
         data_frame_appender = pandas.DataFrame([numpy.append(value, holiday_names[holiday_index])], columns=new_cols)
-        new_data_frame.append(data_frame_appender, ignore_index=True)
+        new_data_frame = new_data_frame.append(data_frame_appender)
 
-    return new_data_frame
+    return new_data_frame, holiday_names
