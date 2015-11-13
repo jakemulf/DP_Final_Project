@@ -9,12 +9,15 @@ dataframe to use
 """
 
 import csv
+import os
 
 
 def write_to_csv(file_name, values):
     """
     writes the values to a csv file with the given file name
     """
+    if not os.path.exists('csv_files'):
+        os.makedirs('csv_files')
     with open('csv_files/'+file_name+'.csv', 'w+') as f:
         csv_writer = csv.writer(f)
         for value in values:

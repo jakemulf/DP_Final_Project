@@ -11,5 +11,3 @@
 #pychache files
 __pycache__/
 
-#Test file to run script
-test.py
