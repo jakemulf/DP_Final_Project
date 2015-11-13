@@ -30,6 +30,7 @@ def filtered_data_frame_to_csv(filtered_data_frame, filter_keys):
         values = filtered_data_frame[filtered_data_frame['filter'] == key]
         write_to_csv(key, values.values)
 
+
 def data_frame_to_csv(data_frame, column, keys):
     """
     Creates multiple csv files where each csv file has the name of a value
