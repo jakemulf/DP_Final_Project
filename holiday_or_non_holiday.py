@@ -37,6 +37,7 @@ def get_age_group(value):
             return group
     return (0,0) #unreachable
 
+
 def get_age_count(df):
     """
     Gets the count of the ages in the dataframe.
@@ -66,17 +67,51 @@ def get_age_count(df):
 
     return count_dict
 
+
 def get_df_count(df):
     """
     Returns the count of the df
 
     If the column COUNT is defined, returns the sum of that
-    column.  Else returns the length of the dataframe
+    column.  Otherwise, returns the length of the dataframe
+    since each row in the dataframe will be a single incident
     """
     if 'COUNT' in df.columns:
         return sum(df['COUNT'])
     else:
         return len(df)
+
+
+def get_average_age(df):
+    """
+    Returns the average age of the dataframe
+
+    Returns -1 if there is no AGE column
+    """
+    if 'AGE' in df.columns:
+        return sum(df['AGE'])/len(df)
+    else:
+        return -1
+
+
+def get_gender_count(df):
+    """
+    Returns a dictionary with 2 keys (M,F) where
+    each key gives the count of that gender
+
+    Returns an empty dictionary if the GENDER
+    column does not exist
+    """
+    gender_counts = {}
+
+    if 'GENDER' in df.columns:
+        gender_counts['M'] = 0
+        gender_counts['F'] = 0
+
+        for value in df['GENDER']:
+            gender_counts[value] += 1
+
+    return gender_counts
 
 
 def generate_statistics(df_one, df_two):
@@ -88,6 +123,14 @@ def generate_statistics(df_one, df_two):
 
     print('Count file one: {}, Count file two: {}'.format(count_one, count_two))
 
+    gender_count_one = get_gender_count(df_one)
+    gender_count_two = get_gender_count(df_two)
+
+    print('Gender breakdown for file one')
+    print(gender_count_one)
+    print('Gender breakdown for file two')
+    print(gender_count_two)
+
     age_group_one = get_age_count(df_one)
     age_group_two = get_age_count(df_two)
 
@@ -96,12 +139,18 @@ def generate_statistics(df_one, df_two):
     print('Breakdown of ages for file two')
     print(age_group_two)
 
+    average_age_one = get_average_age(df_one)
+    average_age_two = get_average_age(df_two)
+
+    print('Average age file one: {}, Average age file two: {}'.format(average_age_one, average_age_two))
+
 
 def main(file_one, file_two):
     df_one = convert_date_time.convert_csv_file(file_one)
     df_two = convert_date_time.convert_csv_file(file_two)
 
     generate_statistics(df_one, df_two)
+
 
 if __name__ == '__main__':
     import sys
