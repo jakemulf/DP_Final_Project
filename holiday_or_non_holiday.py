@@ -114,6 +114,22 @@ def get_gender_count(df):
     return gender_counts
 
 
+def incidents_per_day(df):
+    """
+    Gives the average number of incidents per day in the dataframe
+    """
+    dates_seen = set()
+    if 'DATE' in df.columns:
+        for value in df['DATE']:
+            day = value.day
+            month = value.month
+            dates_seen.add((day,month))
+
+        return len(df)/len(dates_seen)
+
+    else:
+        return 0
+
 def generate_statistics(df_one, df_two):
     """
     Generates comparative statistics for the 2 data frames
@@ -122,6 +138,11 @@ def generate_statistics(df_one, df_two):
     count_two = get_df_count(df_two)
 
     print('Count file one: {}, Count file two: {}'.format(count_one, count_two))
+
+    incidents_per_day_one = incidents_per_day(df_one)
+    incidents_per_day_two = incidents_per_day(df_two)
+
+    print('Incidents per day file one: {}, Incidents per day file two: {}'.format(incidents_per_day_one, incidents_per_day_two))
 
     gender_count_one = get_gender_count(df_one)
     gender_count_two = get_gender_count(df_two)
