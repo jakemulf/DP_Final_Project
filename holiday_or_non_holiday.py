@@ -46,7 +46,7 @@ def get_age_count(df):
     If the column AGE exists, the dictionary is structured such that
     dict[age] gives the count of that specific age.
 
-    If the column AGE_GROUP exists, the dictionary is structured such that
+    If the column AGE GROUP exists, the dictionary is structured such that
     dict[age_range] gives the count in that age range
     """
     count_dict = {}
