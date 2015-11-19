@@ -10,6 +10,7 @@ usage: python3 holiday_or_non_holiday.py <file_one> <file_two>
 """
 
 import convert_date_time
+import math
 
 
 AGE_GROUPS = [
@@ -57,9 +58,9 @@ def get_age_count(df):
             else:
                 count_dict[value] += 1
     
-    elif 'AGE_GROUP' in df.columns:
-        for value in df['AGE_GROUP']:
-            group = get_age_group(value)
+    elif 'AGE GROUP' in df.columns:
+        for group in df['AGE GROUP']:
+            #group = get_age_group(value)
             if not group in count_dict.keys():
                 count_dict[group] = 1
             else:
@@ -77,7 +78,11 @@ def get_df_count(df):
     since each row in the dataframe will be a single incident
     """
     if 'COUNT' in df.columns:
-        return sum(df['COUNT'])
+        s = 0
+        for counts in df['COUNT']:
+            if not math.isnan(counts):
+                s += counts
+        return s
     else:
         return len(df)
 
@@ -89,7 +94,8 @@ def get_average_age(df):
     Returns -1 if there is no AGE column
     """
     if 'AGE' in df.columns:
-        return sum(df['AGE'])/len(df)
+        ages = [x for x in df['AGE'] if not math.isnan(x)]
+        return sum(ages)/len(ages)
     else:
         return -1
 
@@ -109,7 +115,8 @@ def get_gender_count(df):
         gender_counts['F'] = 0
 
         for value in df['GENDER']:
-            gender_counts[value] += 1
+            if value in gender_counts.keys():
+                gender_counts[value] += 1
 
     return gender_counts
 
