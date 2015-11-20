@@ -39,7 +39,7 @@ def get_age_group(value):
     return (0,0) #unreachable
 
 
-def get_age_count(df):
+def get_age_group_count(df):
     """
     Gets the count of the ages in the dataframe.
 
@@ -53,6 +53,7 @@ def get_age_count(df):
     
     if 'AGE' in df.columns:
         for value in df['AGE']:
+            value = get_age_group(value)
             if not value in count_dict.keys():
                 count_dict[value] = 1
             else:
@@ -60,7 +61,6 @@ def get_age_count(df):
     
     elif 'AGE GROUP' in df.columns:
         for group in df['AGE GROUP']:
-            #group = get_age_group(value)
             if not group in count_dict.keys():
                 count_dict[group] = 1
             else:
@@ -159,8 +159,8 @@ def generate_statistics(df_one, df_two):
     print('Gender breakdown for file two')
     print(gender_count_two)
 
-    age_group_one = get_age_count(df_one)
-    age_group_two = get_age_count(df_two)
+    age_group_one = get_age_group_count(df_one)
+    age_group_two = get_age_group_count(df_two)
 
     print('Breakdown of ages for file one')
     print(age_group_one)
