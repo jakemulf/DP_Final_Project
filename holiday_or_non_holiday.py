@@ -9,24 +9,10 @@ usage = """
 usage: python3 holiday_or_non_holiday.py <file_one> <file_two>
 """
 
+from column_keys import AGE_GROUPS
 import convert_date_time
 import math
 
-
-AGE_GROUPS = [
-    (0,4),
-    (5,9),
-    (10,14),
-    (15,17),
-    (18,24),
-    (25,34),
-    (35,44),
-    (45,54),
-    (55,64),
-    (65,74),
-    (75,84),
-    (85, 999),
-]
 
 def get_age_group(value):
     """
