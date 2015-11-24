@@ -3,8 +3,6 @@ __author__ = 'jacob'
 import convert_date_time, write_data, column_keys
 from filter_functions import filter_by_holiday, filter_by_weekday_or_weekend
 
-import sys
-
 
 filter_functions_dictionary = {
     'filter_by_holiday': filter_by_holiday.filter_data,
@@ -37,6 +35,7 @@ def get_write_data_function(strn):
 
 column_keys_dictionary = {
     'week_days': column_keys.week_days,
+    'age_groups': column_keys.AGE_GROUPS,
 }
 
 def get_column_keys(strn):
@@ -55,7 +54,7 @@ def main(file_name, filter_function, write_function, column_keys, column):
     write_function = get_write_data_function(write_function)
     if write_function is None:
         print('Error: write function must be defined')
-        sys.exit(-1)
+        exit(-1)
     
     column_keys = get_column_keys(column_keys)
 
@@ -64,19 +63,19 @@ def main(file_name, filter_function, write_function, column_keys, column):
     if filter_function is None:
         if column_keys is None:
             print('Error: Having no filter function requires column keys to be specified')
-            sys.exit(-1)
+            exit(-1)
         if not column in df.columns:
             print('Error: The column specified does not exist in the dataframe')
-            sys.exit(-1)
+            exit(-1)
         if write_function == write_data.filtered_data_frame_to_csv:
             print('Error: Cannot call filtered_data_frame_to_csv on unfiltered data')
-            sys.exit(-1)
+            exit(-1)
         write_function(df, column, column_keys)
 
     else:
         if write_function != write_data.filtered_data_frame_to_csv:
             print('Error: filtered data must be called with filtered_data_frame_to_csv')
-            sys.exit(-1)
+            exit(-1)
         filtered_df, filter_keys = filter_function(df)
         write_function(filtered_df, filter_keys)
 
@@ -105,6 +104,7 @@ In addition, the write function must be data_frame_to_csv.
 )
 
 if __name__ == '__main__':
+    import sys
     try:
         file_name = sys.argv[1]
         filter_function = value_or_none(sys.argv[2])
