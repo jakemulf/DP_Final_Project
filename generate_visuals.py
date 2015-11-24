@@ -33,6 +33,7 @@ def plot_incident_bar_graphs(csv_files):
     plt.ylim(0,max_count*1.5)
     plt.xlim(-.5,len(count_list)-.5)
     plt.scatter(list(range(len(count_list))), count_list)
+    plt.legend(csv_files)
     plt.show()
 
 
