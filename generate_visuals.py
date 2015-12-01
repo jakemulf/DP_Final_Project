@@ -57,8 +57,8 @@ def main():
 
     count_normalizations = []
     for i in range(len(file_list)):
-        numerator = int(input('Enter numerator: '))
-        denominator = int(input('Enter denominator: '))
+        numerator = int(input('Enter numerator for file {}: '.format(file_list[i])))
+        denominator = int(input('Enter denominator for file {}: '.format(file_list[i])))
         count_normalizations.append(numerator/denominator)
 
     compare_file_counts(file_list, count_normalizations)
