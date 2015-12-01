@@ -7,67 +7,40 @@ Takes a list of csv files and creates visuals for them
 """
 
 import matplotlib.pyplot as plt
+import pandas
+import math
+import random
 
 from convert_date_time import convert_csv_file
 
 
-def plot_incident_bar_graphs(csv_files):
+def rand_color():
     """
-    Takes csv files and creates a scatter plot showing the incidents for each category in
-    the csv files
+    Makes a random RGB color
     """
-    count_list = []
+    return (random.random(), random.random(), random.random())
+
+def compare_file_counts(file_list, count_normalizations):
+    """
+    Creates a plot that compares the counts of each file
+
+    Normalizes the data to give a rate per day
+    """
     max_count = 0
-    for file_name in csv_files:
-        data_frame = convert_csv_file(file_name)
-        if not 'COUNT' in data_frame.columns:
-            print('Error: the csv file must have a COUNT column')
+    for i in range(len(file_list)):
+        file_name = file_list[i]
+        df = pandas.read_csv(file_name)
+        if not 'COUNT' in df.columns:
+            print('COUNT must be in the dataframe')
             exit(-1)
-        count = 0
-        for curr_count in data_frame['COUNT'].values:
-            count += curr_count
-        count_list.append(count)
-        if count > max_count:
-            max_count = count
+        
+        curr_count = sum([x for x in df['COUNT'] if not math.isnan(x)]) \
+                        * count_normalizations[i]
+        if curr_count > max_count:
+            max_count = curr_count
+        plt.scatter(i, curr_count, c=rand_color())
 
-    plt.ylim(0,max_count*1.5)
-    plt.xlim(-.5,len(count_list)-.5)
-    plt.scatter(list(range(len(count_list))), count_list)
-    plt.legend(csv_files)
-    plt.show()
-
-
-def plot_count_by_column(file_name, column_name):
-    """
-    Plots the data in the csv file to compare by a specific column
-    """
-    data_frame = convert_csv_file(file_name)
-    if not column_name in data_frame.columns:
-        print('Error: the given column name is not in the file')
-        exit(-1)
-
-    frequency_dict = {}
-    column_index = data_frame.columns.get_loc(column_name)
-    count_index = -1
-    if 'COUNT' in data_frame.columns:
-        count_index = data_frame.columns.get_loc('COUNT')
-
-    for value in data_frame.values:
-        addend = 1
-        if count_index >= 0:
-            addend = value[count_index]
-
-        if value[column_index] in frequency_dict.keys():
-            frequency_dict[value[column_index]] += addend
-
-        else:
-            frequency_dict[value[column_index]] = addend
-
-    dict_keys = list(frequency_dict.keys())
-
-    for i in range(len(dict_keys)):
-        key = dict_keys[i]
-        plt.scatter(i, frequency_dict[key])
-
-    plt.legend(dict_keys)
+    plt.xlim(-.5, len(file_list)-.5)
+    plt.ylim(0, max_count*1.5)
+    plt.legend(file_list)
     plt.show()
