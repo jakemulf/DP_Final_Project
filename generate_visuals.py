@@ -20,6 +20,7 @@ def rand_color():
     """
     return (random.random(), random.random(), random.random())
 
+
 def compare_file_counts(file_list, count_normalizations):
     """
     Creates a plot that compares the counts of each file
@@ -44,3 +45,23 @@ def compare_file_counts(file_list, count_normalizations):
     plt.ylim(0, max_count*1.5)
     plt.legend(file_list)
     plt.show()
+
+
+def main():
+    file_list = []
+    while True:
+        curr_file = input('Enter file name (enter None to finish): ')
+        if curr_file == 'None':
+            break
+        file_list.append(curr_file)
+
+    count_normalizations = []
+    for i in range(len(file_list)):
+        numerator = int(input('Enter numerator: '))
+        denominator = int(input('Enter denominator: '))
+        count_normalizations.append(numerator/denominator)
+
+    compare_file_counts(file_list, count_normalizations)
+
+if __name__ == '__main__':
+    main()
