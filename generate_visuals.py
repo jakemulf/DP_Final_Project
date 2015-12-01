@@ -31,12 +31,13 @@ def compare_file_counts(file_list, count_normalizations):
     for i in range(len(file_list)):
         file_name = file_list[i]
         df = pandas.read_csv(file_name)
-        if not 'COUNT' in df.columns:
-            print('COUNT must be in the dataframe')
-            exit(-1)
         
-        curr_count = sum([x for x in df['COUNT'] if not math.isnan(x)]) \
+        if not 'COUNT' in df.columns:
+            curr_count = len(df)
+        else:
+            curr_count = sum([x for x in df['COUNT'] if not math.isnan(x)]) \
                         * count_normalizations[i]
+
         if curr_count > max_count:
             max_count = curr_count
         plt.scatter(i, curr_count, c=rand_color())
