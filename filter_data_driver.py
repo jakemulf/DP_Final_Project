@@ -54,7 +54,7 @@ def main(file_name, filter_function, write_function, column_keys, column):
     write_function = get_write_data_function(write_function)
     if write_function is None:
         print('Error: write function must be defined')
-        exit(-1)
+        exit_with_usage(-1)
     
     column_keys = get_column_keys(column_keys)
 
@@ -63,19 +63,19 @@ def main(file_name, filter_function, write_function, column_keys, column):
     if filter_function is None:
         if column_keys is None:
             print('Error: Having no filter function requires column keys to be specified')
-            exit(-1)
+            exit_with_usage(-1)
         if not column in df.columns:
             print('Error: The column specified does not exist in the dataframe')
-            exit(-1)
+            exit_with_usage(-1)
         if write_function == write_data.filtered_data_frame_to_csv:
             print('Error: Cannot call filtered_data_frame_to_csv on unfiltered data')
-            exit(-1)
+            exit_with_usage(-1)
         write_function(df, column, column_keys)
 
     else:
         if write_function != write_data.filtered_data_frame_to_csv:
             print('Error: filtered data must be called with filtered_data_frame_to_csv')
-            exit(-1)
+            exit_with_usage(-1)
         filtered_df, filter_keys = filter_function(df)
         write_function(filtered_df, filter_keys)
 
@@ -87,9 +87,7 @@ def value_or_none(strn):
 
 
 usage = """
-usage: python3 filter_data_driver.py <file_name> <filter_function>* <write_function> <column_keys>* <column>*
-
-*: Can use the keyword 'None' to specify no value
+usage: python3 filter_data_driver.py 
 
 valid filter functions: {filters}
 valid write functions: {writes}
@@ -103,15 +101,16 @@ In addition, the write function must be data_frame_to_csv.
     column_keys = list(column_keys_dictionary.keys())
 )
 
+
+def exit_with_usage(v):
+    print(usage)
+    exit(v)
+
 if __name__ == '__main__':
-    import sys
-    try:
-        file_name = sys.argv[1]
-        filter_function = value_or_none(sys.argv[2])
-        write_function = sys.argv[3]
-        column_keys = value_or_none(sys.argv[4])
-        column = sys.argv[5]
-    except:
-        print(usage)
-        exit(-1)
+    file_name = input('Enter file name: ')
+    filter_function = value_or_none(input('Enter filter function (can be None): '))
+    write_function = input('Enter write function: ')
+    column_keys = value_or_none(input('Enter column keys (can be None): '))
+    column = input('Enter column (can be None): ')
+
     main(file_name, filter_function, write_function, column_keys, column)

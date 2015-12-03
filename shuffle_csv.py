@@ -11,7 +11,7 @@ import numpy
 
 
 usage = """
-usage: python3 shuffle_csv.py <file_name>
+usage: python3 shuffle_csv.py
 """
 
 
@@ -45,10 +45,5 @@ def main(file_name):
 
 
 if __name__ == '__main__':
-    import sys
-    try:
-        file_name = sys.argv[1]
-    except:
-        print(usage)
-        exit(-1)
+    file_name = input('Enter file name: ')
     main(file_name)
