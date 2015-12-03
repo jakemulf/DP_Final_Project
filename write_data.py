@@ -18,7 +18,7 @@ def write_to_csv(file_name, values, columns):
     """
     if not os.path.exists('csv_files'):
         os.makedirs('csv_files')
-    with open('csv_files/'+file_name+'.csv', 'w+') as f:
+    with open('csv_files/'+str(file_name)+'.csv', 'w+') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerow(columns)
         for value in values:

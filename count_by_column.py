@@ -32,7 +32,7 @@ def main():
     keys = get_keys(df, column_name)
     data_frame_to_csv(df, column_name, keys)
 
-    compare_file_counts(['csv_files/'+name+'.csv' for name in keys], [1]*len(keys))
+    compare_file_counts(['csv_files/'+str(name)+'.csv' for name in keys], [1]*len(keys))
 
 if __name__ == '__main__':
     main()
