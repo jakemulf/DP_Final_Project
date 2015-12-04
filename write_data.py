@@ -35,12 +35,24 @@ def filtered_data_frame_to_csv(filtered_data_frame, filter_keys):
         write_to_csv(key, values.values, filtered_data_frame.columns)
 
 
-def data_frame_to_csv(data_frame, column, keys):
+def get_keys(df, column):
+    """
+    Gives a list of all the unique values in the given column
+    """
+    values = set()
+    for value in df[column]:
+        values.add(value)
+
+    return list(values)
+
+
+def data_frame_to_csv(data_frame, column):
     """
     Creates multiple csv files where each csv file has the name of a value
     in the given keys in the given column and contains rows in the
     dataframe that match that key.
     """
+    keys = get_keys(data_frame, column)
     for key in keys:
         values = data_frame[data_frame[column] == key]
         write_to_csv(key, values.values, data_frame.columns)

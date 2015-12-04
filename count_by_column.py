@@ -9,16 +9,6 @@ from convert_date_time import convert_csv_file
 from generate_visuals import compare_file_counts
 from write_data import data_frame_to_csv
 
-def get_keys(df, column):
-    """
-    Gives a list of all the unique values in the given column
-    """
-    values = set()
-    for value in df[column]:
-        values.add(value)
-
-    return list(values)
-
 
 def main():
     file_name = input('Enter the csv file name: ')
@@ -29,8 +19,7 @@ def main():
         print('Error: the column {} is not in the file'.format(column_name))
         exit(-1)
 
-    keys = get_keys(df, column_name)
-    data_frame_to_csv(df, column_name, keys)
+    data_frame_to_csv(df, column_name)
 
     compare_file_counts(['csv_files/'+str(name)+'.csv' for name in keys], [1]*len(keys))
 
