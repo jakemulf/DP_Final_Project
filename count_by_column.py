@@ -7,7 +7,7 @@ with the counts of each value in the given column
 
 from convert_date_time import convert_csv_file
 from generate_visuals import compare_file_counts
-from write_data import data_frame_to_csv
+from write_data import data_frame_to_csv, get_keys
 
 
 def main():
@@ -19,7 +19,8 @@ def main():
         print('Error: the column {} is not in the file'.format(column_name))
         exit(-1)
 
-    data_frame_to_csv(df, column_name)
+    keys = get_keys(df, column_name)
+    data_frame_to_csv(df, column_name, keys)
 
     compare_file_counts(['csv_files/'+str(name)+'.csv' for name in keys], [1]*len(keys))
 

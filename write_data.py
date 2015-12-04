@@ -46,13 +46,14 @@ def get_keys(df, column):
     return list(values)
 
 
-def data_frame_to_csv(data_frame, column):
+def data_frame_to_csv(data_frame, column, keys):
     """
     Creates multiple csv files where each csv file has the name of a value
     in the given keys in the given column and contains rows in the
     dataframe that match that key.
     """
-    keys = get_keys(data_frame, column)
+    if keys is None:
+        keys = get_keys(data_frame, column)
     for key in keys:
         values = data_frame[data_frame[column] == key]
         write_to_csv(key, values.values, data_frame.columns)

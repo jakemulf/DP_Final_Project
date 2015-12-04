@@ -27,7 +27,7 @@ def main(file_name, filter_function, column):
         if not column in df.columns:
             print('Error: The column specified does not exist in the dataframe')
             exit_with_usage(-1)
-        write_data.data_frame_to_csv(df, column)
+        write_data.data_frame_to_csv(df, column, None)
 
     else:
         filtered_df, filter_keys = filter_function(df)
