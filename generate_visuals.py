@@ -45,6 +45,9 @@ def compare_file_counts(file_list, count_normalizations):
     plt.xlim(.5-len(file_list), len(file_list)-.5)
     plt.ylim(0, max_count*1.5)
     plt.legend(file_list, loc='upper left')
+    plt.xlabel(input('Enter x label name: '))
+    plt.ylabel(input('Enter y label name: '))
+    plt.title(input('Enter title: '))
     plt.show()
 
 
