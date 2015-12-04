@@ -42,7 +42,7 @@ def compare_file_counts(file_list, count_normalizations):
             max_count = curr_count
         plt.scatter(i, curr_count, c=rand_color())
 
-    plt.xlim(-.5, len(file_list)-.5)
+    plt.xlim(.5-len(file_list), len(file_list)-.5)
     plt.ylim(0, max_count*1.5)
     plt.legend(file_list, loc='upper left')
     plt.show()
